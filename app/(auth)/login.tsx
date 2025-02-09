@@ -29,7 +29,9 @@ const Login = () => {
           </Typo>
 
           {/* input */}
-          <Input />
+          <Input
+            placeholder='Enter you email'
+          />
         </View>
 
       </View>
