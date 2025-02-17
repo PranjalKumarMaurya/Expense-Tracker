@@ -1,13 +1,25 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
+import React, { useRef, useState } from 'react'
 import ScreenWrapper from '@/components/ScreenWrapper'
 import Typo from '@/components/Typo'
 import { colors, spacingX, spacingY } from '@/constants/theme'
 import { verticalScale } from '@/utils/styling'
 import BackButton from '@/components/BackButton'
 import Input from '@/components/Input'
+import * as Icons from 'phosphor-react-native'
+import Button from '@/components/Button'
+import { useRouter } from 'expo-router'
 
 const Login = () => {
+  const emailRef = useRef('');
+  const passwordRef = useRef('');
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const handleSubmit = async () => {
+
+  }
+
   return (
     <ScreenWrapper>
       <View style={styles.container}>
@@ -31,7 +43,34 @@ const Login = () => {
           {/* input */}
           <Input
             placeholder='Enter you email'
+            onChangeText={(value) => (emailRef.current = value)}
+            icon={<Icons.At size={verticalScale(26)} color={colors.neutral300} />}
           />
+          <Input
+            placeholder='Enter you password'
+            secureTextEntry
+            onChangeText={(value) => (passwordRef.current = value)}
+            icon={<Icons.Lock size={verticalScale(26)} color={colors.neutral300} />}
+          />
+
+          <Typo size={14} color={colors.text} style={{ alignSelf: 'flex-end' }}>
+            Forgot Password?
+          </Typo>
+
+          <Button loading={isLoading} onPress={handleSubmit}>
+            <Typo color={colors.black} fontWeight={'700'} size={21}>
+              Login
+            </Typo>
+          </Button>
+
+        </View>
+
+        {/* footer */}
+        <View style={styles.footer}>
+          <Typo size={15}>Don't have an account?</Typo>
+          <Pressable onPress={() => router.push('/(auth)/register')}>
+            <Typo size={15} fontWeight={'600'} color={colors.primary}>SignUp</Typo>
+          </Pressable>
         </View>
 
       </View>
