@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Alert, Pressable, StyleSheet, Text, View } from 'react-native'
 import React, { useRef, useState } from 'react'
 import ScreenWrapper from '@/components/ScreenWrapper'
 import Typo from '@/components/Typo'
@@ -17,7 +17,12 @@ const Login = () => {
   const router = useRouter();
 
   const handleSubmit = async () => {
-
+    if(!emailRef.current) {
+      Alert.alert("Login", "Please enter your email")
+    } else if(!passwordRef.current) {
+      Alert.alert("Login", "Please enter your password")
+    }
+    console.log("Email and password", emailRef, passwordRef);
   }
 
   return (
@@ -68,7 +73,7 @@ const Login = () => {
         {/* footer */}
         <View style={styles.footer}>
           <Typo size={15}>Don't have an account?</Typo>
-          <Pressable onPress={() => router.push('/(auth)/register')}>
+          <Pressable onPress={() => router.navigate('/(auth)/register')}>
             <Typo size={15} fontWeight={'600'} color={colors.primary}>SignUp</Typo>
           </Pressable>
         </View>
